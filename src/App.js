@@ -12,7 +12,7 @@ class App extends Component {
         blue: '#00f'
       },
       nearestColorValue: '',
-      newNearestColor: ''
+      nearestColorResult: ''
     }
 
     this.changeHandler = this.changeHandler.bind(this)
@@ -24,7 +24,7 @@ class App extends Component {
     const { colors, nearestColorValue } = this.state
     const newNearestColor = nearestColor.from(colors)(nearestColorValue)
     this.setState({
-      newNearestColor: newNearestColor.value,
+      nearestColorResult: newNearestColor.value,
       nearestColorValue: ''
     })
   }
