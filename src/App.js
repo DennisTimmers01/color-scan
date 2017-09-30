@@ -8,7 +8,6 @@ class App extends Component {
     this.state = {
       colorPalettes: [
         {
-          name: 'autumn',
           colors: {
             DarkMuted: '#543829',
             DarkVibrant: '#581609',
@@ -19,15 +18,14 @@ class App extends Component {
           }
         }
       ],
-      vibrantColors: {
-        autumn: '#b66e55'
-      },
+      vibrantColors: ['#b66e55'],
       nearestColorValue: '',
       nearestColorResult: ''
     }
 
     this.changeHandler = this.changeHandler.bind(this)
     this.getNearestColor = this.getNearestColor.bind(this)
+    this.findColorPalette = this.findColorPalette.bind(this)
   }
 
   getNearestColor (e) {
@@ -35,9 +33,17 @@ class App extends Component {
     const { vibrantColors, nearestColorValue } = this.state
     const newNearestColor = nearestColor.from(vibrantColors)(nearestColorValue)
     this.setState({
-      nearestColorResult: newNearestColor.value,
+      nearestColorResult: newNearestColor,
       nearestColorValue: ''
     })
+    setTimeout(() => { this.findColorPalette() }, 500)
+  }
+
+  findColorPalette () {
+    const { nearestColorResult, colorPalettes } = this.state
+    const findPalette = palette => palette.colors.Vibrant === nearestColorResult
+    const correctPalette = colorPalettes.find(findPalette)
+    console.log(correctPalette)
   }
 
   changeHandler ({ target }) {
@@ -53,6 +59,7 @@ class App extends Component {
           onChange={this.changeHandler}
           onSubmit={this.getNearestColor}
         />
+        <button onClick={this.findColorPalette}>get palette</button>
       </div>
     )
   }
