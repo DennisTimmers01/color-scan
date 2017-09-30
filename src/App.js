@@ -11,7 +11,8 @@ class App extends Component {
         yellow: '#ff0',
         blue: '#00f'
       },
-      nearestColorValue: ''
+      nearestColorValue: '',
+      newNearestColor: ''
     }
 
     this.changeHandler = this.changeHandler.bind(this)
@@ -22,7 +23,10 @@ class App extends Component {
     e.preventDefault()
     const { colors, nearestColorValue } = this.state
     const newNearestColor = nearestColor.from(colors)(nearestColorValue)
-    console.log(newNearestColor)
+    this.setState({
+      newNearestColor: newNearestColor.value,
+      nearestColorValue: ''
+    })
   }
 
   changeHandler ({ target }) {
@@ -30,9 +34,11 @@ class App extends Component {
   }
 
   render () {
+    const { nearestColorValue } = this.state
     return (
       <div className='App'>
         <NearestColorForm
+          value={nearestColorValue}
           onChange={this.changeHandler}
           onSubmit={this.getNearestColor}
         />
