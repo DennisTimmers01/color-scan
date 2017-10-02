@@ -8,6 +8,7 @@ class App extends Component {
     this.state = {
       colorPalettes: [
         {
+          name: 'first palette',
           colors: {
             DarkMuted: '#543829',
             DarkVibrant: '#581609',
@@ -16,11 +17,22 @@ class App extends Component {
             Muted: '#986b59',
             Vibrant: '#b66e55'
           }
+        }, {
+          name: 'second palette',
+          colors: {
+            DarkMuted: '#541829',
+            DarkVibrant: '#581609',
+            LightMuted: '#bf8b73',
+            LightVibrant: '#f4c484',
+            Muted: '#986b19',
+            Vibrant: '#b65e44'
+          }
         }
       ],
-      vibrantColors: ['#b66e55'],
+      vibrantColors: ['#b66e55', '#b65e44'],
       nearestColorValue: '',
-      nearestColorResult: ''
+      nearestColorResult: '',
+      finalPalette: {}
     }
 
     this.changeHandler = this.changeHandler.bind(this)
@@ -43,7 +55,9 @@ class App extends Component {
     const { nearestColorResult, colorPalettes } = this.state
     const findPalette = palette => palette.colors.Vibrant === nearestColorResult
     const correctPalette = colorPalettes.find(findPalette)
-    console.log(correctPalette)
+    this.setState({
+      finalPalette: correctPalette
+    })
   }
 
   changeHandler ({ target }) {
